@@ -18,7 +18,7 @@ public class SidoDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     private String orgCd; // 시도 코드
     private String orgdownNm; // 시도 이름
 

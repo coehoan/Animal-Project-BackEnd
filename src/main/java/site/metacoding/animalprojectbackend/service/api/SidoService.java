@@ -17,12 +17,11 @@ import site.metacoding.animalprojectbackend.domain.sido.SidoRepository;
 @RequiredArgsConstructor
 @Service
 public class SidoService {
-    
+
     private final SidoRepository sidoRepository;
 
     @Transactional
     public List<SidoDto> 다운로드(SidoDto sidoDto) {
-
 
         List<SidoDto> lists = new ArrayList<>();
 
@@ -39,8 +38,9 @@ public class SidoService {
 
             List<ResponseDto> sidoList = new ArrayList<>();
 
-
             String totalCount = response.getResponse().getBody().getTotalCount(); // totalcount 받기
+
+            System.out.println(totalCount);
 
             key = "jDqHGG%2BaNG47ijh6s3XzB%2BuF8fJOeovccnw%2FZtc9wLQUaKJumPo%2Frl1a2ygZ68dv9L0PD7drvpjPAeTnnB9f%2FQ%3D%3D";
             uri = new URI(
@@ -50,7 +50,7 @@ public class SidoService {
 
             response = restTemplate.getForObject(uri, ResponseDto.class);
 
-            for(int i = 0; i < response.getResponse().getBody().getItems().getItem().size(); i++) {
+            for (int i = 0; i < response.getResponse().getBody().getItems().getItem().size(); i++) {
                 sidoList.add(response);
             }
 
