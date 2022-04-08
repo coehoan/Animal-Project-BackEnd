@@ -39,11 +39,10 @@ public class TestService {
         String gwangju = "6290000";
         String busan = "6260000";
 
-        
-
         StringBuffer urisb = new StringBuffer();
 
-        for(int i = 0; i < sidoEntity.size(); i++) {
+        for (int i = 0; i < sidoEntity.size(); i++) {
+
             if (sidoRepo.get(i).getOrgCd().equals("6290000")) { // 광주
                 urisb.append("http://apis.data.go.kr/1543061/abandonmentPublicSrvc/sigungu?");
                 urisb.append("serviceKey=" + key);
@@ -52,49 +51,52 @@ public class TestService {
                 urisb.append("&_type=JSON");
 
                 System.out.println(urisb);
-    
-            } else if(sidoRepo.get(i).getOrgCd().equals("6260000")) { 
+
+            }
+            if (sidoRepo.get(i).getOrgCd().equals("6260000")) {
                 urisb.append("http://apis.data.go.kr/1543061/abandonmentPublicSrvc/sigungu?");
                 urisb.append("serviceKey=" + key);
                 urisb.append("&upr_cd=");
                 urisb.append(busan);
                 urisb.append("&_type=JSON");
+
+                System.out.println(urisb);
             }
 
             try {
 
                 URI uri = new URI(urisb.toString());
-    
+
                 RestTemplate restTemplate = new RestTemplate();
-    
+
                 ResponseDto response = restTemplate.getForObject(uri, ResponseDto.class);
-    
+
                 System.out.println(response);
-    
+
                 List<ResponseDto> sigunguList = new ArrayList<>();
-    
+
                 for (int p = 0; p < response.getResponse().getBody().getItems().getItem().size(); p++) {
-                        sigunguList.add(response);
-    
+                    sigunguList.add(response);
+
                 }
-    
+
                 System.out.println(sigunguList);
-    
+
                 for (int o = 0; o < sigunguList.size(); o++) {
                     SigunguDto result = new SigunguDto(o,
-                            sigunguList.get(o).getResponse().getBody().getItems().getItem().get(i).getOrgCd(),
-                            sigunguList.get(o).getResponse().getBody().getItems().getItem().get(i).getOrgdownNm(),
-                            sigunguList.get(o).getResponse().getBody().getItems().getItem().get(i).getUprCd());
-    
+                            sigunguList.get(o).getResponse().getBody().getItems().getItem().get(o).getOrgCd(),
+                            sigunguList.get(o).getResponse().getBody().getItems().getItem().get(o).getOrgdownNm(),
+                            sigunguList.get(o).getResponse().getBody().getItems().getItem().get(o).getUprCd());
+
                     lists.add(result);
                 }
-    
+
                 System.out.println(lists);
-    
+
                 List<SigunguDto> sigunguEntity = sigunguRepository.saveAll(lists);
-    
+
                 return sigunguEntity;
-    
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
