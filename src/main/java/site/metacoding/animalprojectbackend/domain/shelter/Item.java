@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class Item {
     
-    private String orgCd;
-    private String orgdownNm;
+    private String careRegNo; // 보호소 넘버
+    private String careNm; // 보호소 이름
 }
