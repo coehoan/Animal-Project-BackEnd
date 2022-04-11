@@ -2,13 +2,12 @@ package site.metacoding.animalprojectbackend.service.api;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import lombok.RequiredArgsConstructor;
@@ -29,8 +28,9 @@ public class TestService {
     public List<SigunguDto> 테스트(SigunguDto sigunguDto) {
 
         List<SigunguDto> lists = new ArrayList<>();
-        List<SidoDto> sidoEntity = sidoRepository.findAll();
-        List<SidoDto> sidoRepo = sidoRepository.findCd();
+        List<SidoDto> sidoEntity = sidoRepository.findAll(); // 시도 모두 찾기
+        List<SidoDto> sidoRepo = sidoRepository.findCd(); // 시도 코드만 찾기
+        Set<SidoDto> sidoHash = sidoRepository.findCdHash();
 
         // 서비스키
         String key = "jDqHGG%2BaNG47ijh6s3XzB%2BuF8fJOeovccnw%2FZtc9wLQUaKJumPo%2Frl1a2ygZ68dv9L0PD7drvpjPAeTnnB9f%2FQ%3D%3D";
@@ -40,36 +40,26 @@ public class TestService {
         String busan = "6260000";
 
         StringBuffer urisb = new StringBuffer();
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseDto response = new ResponseDto();
 
-        for (int i = 0; i < sidoEntity.size(); i++) {
 
-            if (sidoRepo.get(i).getOrgCd().equals("6290000")) { // 광주
-                urisb.append("http://apis.data.go.kr/1543061/abandonmentPublicSrvc/sigungu?");
-                urisb.append("serviceKey=" + key);
-                urisb.append("&upr_cd=");
-                urisb.append(gwangju);
-                urisb.append("&_type=JSON");
-
-                System.out.println(urisb);
-
-            }
-            if (sidoRepo.get(i).getOrgCd().equals("6260000")) {
-                urisb.append("http://apis.data.go.kr/1543061/abandonmentPublicSrvc/sigungu?");
-                urisb.append("serviceKey=" + key);
-                urisb.append("&upr_cd=");
-                urisb.append(busan);
-                urisb.append("&_type=JSON");
-
-                System.out.println(urisb);
-            }
+        for (int i = 0; i < sidoRepo.size(); i++) { // 시도 사이즈만큼 반복
 
             try {
-
                 URI uri = new URI(urisb.toString());
 
-                RestTemplate restTemplate = new RestTemplate();
+                for(int p = 0; p < sidoRepo.size(); p++) {
+                    urisb.append("http://apis.data.go.kr/1543061/abandonmentPublicSrvc/sigungu?");
+                    urisb.append("serviceKey=" + key);
+                    urisb.append("&upr_cd=");
+                    urisb.append(sidoRepo.get(i).getOrgCd());
+                    urisb.append("&_type=JSON");
 
-                ResponseDto response = restTemplate.getForObject(uri, ResponseDto.class);
+                    System.out.println(urisb.toString());
+                    response = restTemplate.getForObject(uri, ResponseDto.class);
+                }
+                
 
                 System.out.println(response);
 
