@@ -1,4 +1,4 @@
-package site.metacoding.animalprojectbackend.domain.shelter;
+package site.metacoding.animalprojectbackend.domain.shelter.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

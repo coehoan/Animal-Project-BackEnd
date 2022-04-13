@@ -1,25 +1,30 @@
-package site.metacoding.animalprojectbackend.domain.sido;
+package site.metacoding.animalprojectbackend.domain.shelter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
+@Builder
 @Entity
-public class SidoDto {
-
+public class Shelter {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
-    private String orgCd; // 시도 코드
-    private String orgdownNm; // 시도 이름
 
+    @Column(nullable = true)
+    private String careRegNo; // 보호소 넘버
+
+    @Column(nullable = true)
+    private String careNm; // 보호소 이름
 }

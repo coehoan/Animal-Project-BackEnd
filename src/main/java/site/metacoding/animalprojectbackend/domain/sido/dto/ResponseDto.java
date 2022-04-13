@@ -1,4 +1,4 @@
-package site.metacoding.animalprojectbackend.domain.sido;
+package site.metacoding.animalprojectbackend.domain.sido.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Response {
+public class ResponseDto {
 
-    private Header header;
-    private Body body;
+    private Response response;
 }

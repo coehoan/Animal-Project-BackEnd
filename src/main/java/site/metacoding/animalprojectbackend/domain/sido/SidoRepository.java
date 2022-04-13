@@ -6,12 +6,9 @@ import java.util.Set;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-public interface SidoRepository extends JpaRepository<SidoDto, Integer> {
+public interface SidoRepository extends JpaRepository<Sido, Integer> {
     
-    @Query(value = "SELECT * FROM SidoDto WHERE orgCd", nativeQuery = true)
-    List<SidoDto> findCd();
-
-    @Query(value = "SELECT * FROM SidoDto WHERE orgCd", nativeQuery = true)
-    Set<SidoDto> findCdHash();
+    @Query(value = "SELECT * FROM Sido WHERE orgCd", nativeQuery = true)
+    List<Sido> findCd();
 
 }

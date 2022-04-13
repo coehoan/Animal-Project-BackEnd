@@ -1,4 +1,4 @@
-package site.metacoding.animalprojectbackend.domain.shelter;
+package site.metacoding.animalprojectbackend.domain.sigungu.dto;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package site.metacoding.animalprojectbackend.domain.shelter;
+package site.metacoding.animalprojectbackend.domain.sigungu;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,19 +6,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
+@Builder
 @Entity
-public class ShelterDto {
-    
+public class Sigungu {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    
+    private String uprCd; // 상위 시도 코드
+    private String orgCd; // 시군구 코드
+    private String orgdownNm; // 시군구 이름
 
-    private String careRegNo; // 보호소 넘버
-    private String careNm; // 보호소 이름
 }
