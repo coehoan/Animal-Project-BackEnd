@@ -10,8 +10,10 @@ import org.springframework.web.client.RestTemplate;
 
 import lombok.RequiredArgsConstructor;
 import site.metacoding.animalprojectbackend.domain.sido.Sido;
+
 import site.metacoding.animalprojectbackend.domain.sido.SidoRepository;
 import site.metacoding.animalprojectbackend.domain.sigungu.Sigungu;
+
 import site.metacoding.animalprojectbackend.domain.sigungu.SigunguRepository;
 import site.metacoding.animalprojectbackend.domain.sigungu.dto.ResponseDto;
 
@@ -51,16 +53,28 @@ public class TestService {
                 urisb.append(sidoRepo.get(p).getOrgCd());
                 urisb.append("&_type=JSON");
 
-                System.out.println(urisb.toString());
+                // System.out.println(urisb.toString());
 
                 URI uri = new URI(urisb.toString());
 
                 response = restTemplate.getForObject(uri, ResponseDto.class);
-                System.out.println(response);
+                // System.out.println("첫 번째로 받은 다운로드 ========" + response); null
 
                 for (int k = 0; k < response.getResponse().getBody().getItems().getItem().size(); k++) {
                     sigunguList.add(response);
+                }
+                for (Sigungu a : lists) {
+                    Sigungu result = new Sigungu(
+                            a.getId(),
+                            a.getOrgCd(),
+                            a.getOrgdownNm(),
+                            a.getUprCd());
+                    lists.add(result);
 
+                    // System.out.println("엔티티에서 받음 =======" + lists); null
+
+                    List<Sigungu> sigunguEntity = sigunguRepository.saveAll(lists);
+                    return sigunguEntity;
                 }
             }
         } catch (Exception e) {
@@ -72,37 +86,69 @@ public class TestService {
                 urisb.append(sidoRepo.get(p).getOrgCd());
                 urisb.append("&_type=JSON");
 
-                System.out.println(urisb.toString());
+                // System.out.println(urisb.toString());
+
                 try {
                     URI uri = new URI(urisb.toString());
                     response = restTemplate.getForObject(uri, ResponseDto.class);
-
                     for (int k = 0; k < response.getResponse().getBody().getItems().getItem().size(); k++) {
                         sigunguList.add(response);
 
                     }
 
-                    System.out.println(sigunguList);
-                    Integer count = 0;
-                    for (ResponseDto o : sigunguList) {
-                        Sigungu sigungus = new Sigungu(count++,
-                                o.getResponse().getBody().getItems().getItem().get(count++).getUprCd(),
-                                o.getResponse().getBody().getItems().getItem().get(count++).getOrgCd(),
-                                o.getResponse().getBody().getItems().getItem().get(count++).getOrgdownNm());
+                    // System.out.println("다운로드 받은 것 ========" + sigunguList);
+                    // 여기에서 성공함
 
-                        lists.add(sigungus);
+                    for (int i = 0; i < sigunguList.size(); i++) {
+                        Sigungu result = new Sigungu(i,
+                                sigunguList.get(i).getResponse().getBody().getItems().getItem().get(i).getUprCd(),
+                                sigunguList.get(i).getResponse().getBody().getItems().getItem().get(i).getOrgCd(),
+                                sigunguList.get(i).getResponse().getBody().getItems().getItem().get(i).getOrgdownNm());
+
+                        lists.add(result);
                     }
 
-                    List<Sigungu> sigunguEntity = sigunguRepository.saveAll(lists);
+                    System.out.println("엔티티에 담아졌나?" + lists);
+                    // Integer count = 0;
+                    // for (ResponseDto a : sigunguList) { // sigunguList 크기만큼
+                    // Sigungu result = new Sigungu(count++,
+                    // a.getResponse().getBody().getItems().getItem().get(count++).getUprCd(),
+                    // a.getResponse().getBody().getItems().getItem().get(count++).getOrgCd(),
+                    // a.getResponse().getBody().getItems().getItem().get(count++).getOrgdownNm());
+                    // lists.add(result);
 
-                    return sigunguEntity;
+                    // System.out.println("두 번째로 엔티티에서 넣은 것 =======" + lists);
+                    // }
+
                 } catch (Exception o) {
-                    o.printStackTrace();
-                    System.out.println(lists);
+
+                    for (int i = 0; i < sigunguList.size(); i++) {
+                        Sigungu result = new Sigungu(i,
+                                sigunguList.get(i).getResponse().getBody().getItems().getItem().get(i).getUprCd(),
+                                sigunguList.get(i).getResponse().getBody().getItems().getItem().get(i).getOrgCd(),
+                                sigunguList.get(i).getResponse().getBody().getItems().getItem().get(i).getOrgdownNm());
+
+                        lists.add(result);
+                    }
+
+                    System.out.println("엔티티에 담아졌나?" + lists);
+                    // Integer count = 0;
+                    // for (ResponseDto a : sigunguList) { // sigunguList 크기만큼
+                    // Sigungu result = new Sigungu(count++,
+                    // a.getResponse().getBody().getItems().getItem().get(count++).getUprCd(),
+                    // a.getResponse().getBody().getItems().getItem().get(count++).getOrgCd(),
+                    // a.getResponse().getBody().getItems().getItem().get(count++).getOrgdownNm());
+                    // lists.add(result);
+
+                    // System.out.println("두 번째로 엔티티에서 넣은 것 =======" + lists);
+                    // }
 
                     List<Sigungu> sigunguEntity = sigunguRepository.saveAll(lists);
 
+                    System.out.println("엔티티 받아졌나?" + sigunguEntity);
+
                     return sigunguEntity;
+
                 }
 
             }
@@ -111,3 +157,4 @@ public class TestService {
 
     }
 }
+// 한 대여섯번 반복하지만 일단 다 나오긴 함(근데 다운이 안되네...;;)

@@ -22,9 +22,9 @@ public class Shelter {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = true)
+    @Column(nullable = true, length = 500)
     private String careRegNo; // 보호소 넘버
 
-    @Column(nullable = true)
+    @Column(nullable = true, length = 500)
     private String careNm; // 보호소 이름
 }

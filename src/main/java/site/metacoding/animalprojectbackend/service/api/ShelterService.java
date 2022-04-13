@@ -56,7 +56,6 @@ public class ShelterService {
 
             for (int i = 0; i < sigunguEntity.size(); i++) {
                 StringBuffer urisb = new StringBuffer();
-                urisb = new StringBuffer();
                 urisb.append("http://apis.data.go.kr/1543061/abandonmentPublicSrvc/shelter?");
                 urisb.append("serviceKey=" + key);
                 urisb.append("&upr_cd=");
