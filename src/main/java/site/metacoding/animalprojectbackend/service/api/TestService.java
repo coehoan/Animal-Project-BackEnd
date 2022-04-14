@@ -71,11 +71,15 @@ public class TestService {
                     for (int i = 0; i < itemList.size(); i++) {
 
                         System.out.println("아이템 사이즈 확인 =====" + itemList.size());
-                        Sigungu sigungus = new Sigungu();
-                        sigungus.setId(i);
-                        sigungus.setOrgCd(itemList.get(i).getOrgCd());
-                        sigungus.setOrgdownNm(itemList.get(i).getOrgdownNm());
-                        sigungus.setUprCd(itemList.get(i).getUprCd());
+                        Sigungu sigungus = Sigungu.builder()
+                        .orgCd(itemList.get(i).getOrgCd())
+                        .orgdownNm(itemList.get(i).getOrgdownNm())
+                        .uprCd(itemList.get(i).getUprCd())
+                        .build();
+                        // sigungus.setId(i);
+                        // sigungus.setOrgCd(itemList.get(i).getOrgCd());
+                        // sigungus.setOrgdownNm(itemList.get(i).getOrgdownNm());
+                        // sigungus.setUprCd(itemList.get(i).getUprCd());
 
                         lists.add(sigungus);
 

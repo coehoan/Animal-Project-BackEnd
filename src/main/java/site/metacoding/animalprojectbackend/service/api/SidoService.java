@@ -59,9 +59,10 @@ public class SidoService {
             System.out.println(sidoList);
 
             for (int i = 0; i < sidoList.size(); i++) {
-                Sido result = new Sido(i,
-                        sidoList.get(i).getResponse().getBody().getItems().getItem().get(i).getOrgCd(),
-                        sidoList.get(i).getResponse().getBody().getItems().getItem().get(i).getOrgdownNm());
+                Sido result = Sido.builder()
+                .orgCd(sidoList.get(i).getResponse().getBody().getItems().getItem().get(i).getOrgCd())
+                .orgdownNm(sidoList.get(i).getResponse().getBody().getItems().getItem().get(i).getOrgdownNm())
+                .build();
 
                 lists.add(result);
             }

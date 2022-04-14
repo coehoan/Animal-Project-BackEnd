@@ -78,10 +78,13 @@ public class ShelterService {
                     List<Item> itemList = response.getResponse().getBody().getItems().getItem();
 
                     for (int o = 0; o < itemList.size(); o++) {
-                        Shelter shelter = new Shelter();
-                        shelter.setId(o);
-                        shelter.setCareNm(itemList.get(o).getCareNm());
-                        shelter.setCareRegNo(itemList.get(o).getCareRegNo());
+                        Shelter shelter = Shelter.builder()
+                        .careNm(itemList.get(o).getCareNm())
+                        .careRegNo(itemList.get(o).getCareRegNo())
+                        .build();
+                        // shelter.setId(o);
+                        // shelter.setCareNm(itemList.get(o).getCareNm());
+                        // shelter.setCareRegNo(itemList.get(o).getCareRegNo());
 
                         lists.add(shelter);
 
