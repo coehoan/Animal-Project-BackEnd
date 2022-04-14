@@ -159,9 +159,9 @@ public class SigunguController {
     }
 
     @GetMapping("/sigungu/test")
-    public String test(Sigungu sigunguDto, Model model) {
+    public String test(Sigungu sigungu, Model model) {
 
-        List<Sigungu> sigunguEntity = testService.테스트(sigunguDto);
+        List<Sigungu> sigunguEntity = testService.테스트(sigungu);
 
         model.addAttribute("testlist", sigunguEntity);
 
