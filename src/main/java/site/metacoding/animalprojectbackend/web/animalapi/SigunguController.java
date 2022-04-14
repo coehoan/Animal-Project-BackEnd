@@ -159,9 +159,15 @@ public class SigunguController {
     }
 
     @GetMapping("/sigungu/test")
+<<<<<<< HEAD
     public String test(Sigungu sigungu, Model model) {
 
         List<Sigungu> sigunguEntity = testService.테스트(sigungu);
+=======
+    public String test(SigunguDto sigunguDto, Model model) {
+
+        List<SigunguDto> sigunguEntity = testService.테스트(sigunguDto);
+>>>>>>> e21804325a7de08ba7ba48eea59beaed37b53497
 
         model.addAttribute("testlist", sigunguEntity);
 
