@@ -8,16 +8,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import lombok.RequiredArgsConstructor;
 import site.metacoding.animalprojectbackend.domain.sigungu.Sigungu;
+import site.metacoding.animalprojectbackend.service.api.SigunguAllService;
 import site.metacoding.animalprojectbackend.service.api.SigunguService;
-import site.metacoding.animalprojectbackend.service.api.TestService;
 
 @RequiredArgsConstructor
 @Controller
 public class SigunguController {
 
     private final SigunguService sigunguService;
-    private final TestService testService;
-    
+    private final SigunguAllService sigunguAllService;
+
+    @GetMapping("/sigungu")
+    public String sigunguAll(Sigungu sigungu, Model model) {
+
+        List<Sigungu> sigunguEntity = sigunguAllService.다운로드(sigungu);
+
+        model.addAttribute("sigungulist", sigunguEntity);
+
+        return "/api/sigunguAllDownload";
+    }
+
+
+    /////////////////////////////////////////이건 사용하지 마세요!!
     @GetMapping("/sigungu/busan")
     public String download(Sigungu sigunguDto, Model model) {
 
@@ -30,7 +42,7 @@ public class SigunguController {
 
     @GetMapping("/sigungu/deagu")
     public String deagu(Sigungu sigunguDto, Model model) {
-        
+
         List<Sigungu> sigunguEntity = sigunguService.대구다운로드(sigunguDto);
 
         model.addAttribute("deagulist", sigunguEntity);
@@ -40,7 +52,7 @@ public class SigunguController {
 
     @GetMapping("/sigungu/incheon")
     public String incheon(Sigungu sigunguDto, Model model) {
-        
+
         List<Sigungu> sigunguEntity = sigunguService.인천다운로드(sigunguDto);
 
         model.addAttribute("incheonlist", sigunguEntity);
@@ -158,14 +170,4 @@ public class SigunguController {
         return "/api/sigunguDownload";
     }
 
-    @GetMapping("/sigungu/test")
-    public String test(Sigungu sigungu, Model model) {
-
-        List<Sigungu> sigunguEntity = testService.테스트(sigungu);
-
-        model.addAttribute("testlist", sigunguEntity);
-
-        return "/api/test";
-    }
-    
 }
