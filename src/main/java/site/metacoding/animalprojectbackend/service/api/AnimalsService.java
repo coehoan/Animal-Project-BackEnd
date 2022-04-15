@@ -38,15 +38,13 @@ public class AnimalsService {
         sigunguSb.append("FROM Sigungu sg ");
         sigunguSb.append("LEFT OUTER JOIN Sido si ON sg.uprCd = si.orgCd ");
 
-
         StringBuffer shelterSb = new StringBuffer();
         shelterSb.append("SELECT st.id, st.careNm, st.careRegNo ");
         shelterSb.append("FROM Sigungu sg ");
         shelterSb.append("LEFT OUTER JOIN Shelter st ON sg.id = st.id");
 
-
         Query sigungQuery = entityManager.createQuery(sigunguSb.toString()); // 쿼리 완성
-        Query sheltQuery= entityManager.createQuery(shelterSb.toString()); // 쿼리 완성
+        Query sheltQuery = entityManager.createQuery(shelterSb.toString()); // 쿼리 완성
 
         JpaResultMapper resultMapper = new JpaResultMapper(); // 쿼리를 실행해줌, qlrm 라이브러리가 필요, class로 맵핑하기 위해서
         List<Sigungu> toSigungu = resultMapper.list(sigungQuery, Sigungu.class); // 결과값 리스트에서 담음
@@ -71,8 +69,8 @@ public class AnimalsService {
         neuturList.add("N"); // 아니오
         neuturList.add("U"); // 미상
 
-        String firstDate = "20220319";
-        String finishDate = "20220419";
+        String firstDate = "20210101";
+        String finishDate = "20220415";
 
         // 서비스키
         String key = "jDqHGG%2BaNG47ijh6s3XzB%2BuF8fJOeovccnw%2FZtc9wLQUaKJumPo%2Frl1a2ygZ68dv9L0PD7drvpjPAeTnnB9f%2FQ%3D%3D";
@@ -83,39 +81,28 @@ public class AnimalsService {
             List<Animals> lists = new ArrayList<>();
             ResponseDto response = new ResponseDto();
 
-            for (int i = 0; i < sigunguEntity.size(); i++) {
-                StringBuffer uriSb = new StringBuffer();
-                uriSb.append("http://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?");
-                uriSb.append("serviceKey=" + key); // 서비스키
-                uriSb.append("&bgnde="); // 검색시작
-                uriSb.append(firstDate);
-                uriSb.append("&endde="); // 검색끝
-                uriSb.append(finishDate);
-                uriSb.append("&upkind="); // 축종코드
-                uriSb.append(animalCode.get(i));
-                uriSb.append("&kind="); // 품종
-                uriSb.append(kindCdFindList.get(i).getKindCd());
-                uriSb.append("&upr_cd="); // 시도
-                uriSb.append(toSigungu.get(i).getOrgdownNm());
-                uriSb.append("&org_cd="); // 시군구
-                uriSb.append(toSigungu.get(i).getUprCd());
-                uriSb.append("&care_reg_no="); // 보호소 번호
-                uriSb.append(toShelter.get(i).getCareNm());
-                uriSb.append("&state="); // 상태
-                uriSb.append(stateList.get(i));
-                uriSb.append("&neuter_yn="); // 중성화여부
-                uriSb.append(neuturList.get(i));
-                uriSb.append("&pageNo=1"); // 페이지 번호
-                uriSb.append("&numOfRows=10"); // 페이지당 보여줄 갯수
-                uriSb.append("&_type=JSON"); // 타입
+            StringBuffer uriSb = new StringBuffer();
+            uriSb.append("http://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?");
+            uriSb.append("serviceKey=" + key); // 서비스키
+            uriSb.append("&bgnde="); // 검색시작
+            uriSb.append(firstDate);
+            uriSb.append("&endde="); // 검색끝
+            uriSb.append(finishDate);
+            uriSb.append("&pageNo=1"); // 페이지 번호
+            uriSb.append("&numOfRows=1000"); // 페이지당 보여줄 갯수
+            uriSb.append("&_type=JSON"); // 타입
 
-                URI uri = new URI(uriSb.toString());
+            URI uri = new URI(uriSb.toString());
 
-                System.out.println("요청한 주소 ======= " + uri);
+            // System.out.println("요청한 주소 ======= " + uri);
 
-                response = restTemplate.getForObject(uri, ResponseDto.class);
+            response = restTemplate.getForObject(uri, ResponseDto.class);
 
-                System.out.println("받은 데이터 ==========" + response);
+            // System.out.println("받은 데이터 ==========" + response);
+
+            Integer totalCount = response.getResponse().getBody().getTotalCount();
+
+            for (int i = 0; i < totalCount / 142; i++) {
 
                 if (response.getResponse().getBody().getItems().getItem() != null) {
 
@@ -123,6 +110,8 @@ public class AnimalsService {
 
                     for (int o = 0; o < itemList.size(); o++) {
                         Animals toAnimals = Animals.builder()
+                                .filename(itemList.get(o).getFilename())
+                                .popfile(itemList.get(o).getPopfile())
                                 .age(itemList.get(o).getAge())
                                 .careAddr(itemList.get(o).getCareAddr())
                                 .careNm(itemList.get(o).getCareNm())

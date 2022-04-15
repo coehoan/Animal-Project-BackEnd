@@ -13,47 +13,51 @@
 
     {{#animalslist}}
 
-    유기번호 : {{desertionNo}}
+    이미지 : {{#popfile}}{{popfile}}{{/popfile}}{{^popfile}}null{{/popfile}}
 
-    접수일 : {{happenDt}}
+    섬네일 : {{#filename}}{{filename}}{{/filename}}{{^filename}}null{{/filename}}
 
-    발견장소 : {{happenPlace}};
+    유기번호 : {{#desertionNo}}{{desertionNo}}{{/desertionNo}}{{^desertionNo}}null{{/desertionNo}}
 
-    품종 : {{kindCd}}
+    접수일 : {{#happenDt}}{{happenDt}}{{/happenDt}}{{^happenDt}}null{{/happenDt}}
 
-    색상 : {{colorCd}}
+    발견장소 : {{#happenPlace}}{{happenPlace}}{{/happenPlace}}{{^happenPlace}}null{{/happenPlace}}
 
-    나이 : {{age}}
+    품종 : {{#kindCd}}{{kindCd}}{{/kindCd}}{{^kindCd}}null{{/kindCd}}
 
-    체중 : {{weight}}
+    색상 : {{#colorCd}}{{colorCd}}{{/colorCd}}{{^colorCd}}null{{/colorCd}}
 
-    공고번호 : {{noticeNo}}
+    나이 : {{#age}}{{age}}{{/age}}{{^age}}null{{/age}}
 
-    공고 시작일 : {{noticeSdt}}
+    체중 : {{#weight}}{{weight}}{{/weight}}{{^weight}}null{{/weight}}
 
-    공고 종료일 : {{noticeEdt}}
+    공고번호 : {{#noticeNo}}{{noticeNo}}{{/noticeNo}}{{^noticeNo}}null{{/noticeNo}}
 
-    상태 : {{processState}}
+    공고 시작일 : {{#noticeSdt}}{{noticeSdt}}{{/noticeSdt}}{{^noticeSdt}}null{{/noticeSdt}}
 
-    성별 : {{sexCd}}
+    공고 종료일 : {{#noticeEdt}}{{noticeEdt}}{{/noticeEdt}}{{^noticeEdt}}null{{/noticeEdt}}
 
-    중성화 여부 : {{neuterYn}}
+    상태 : {{#processState}}{{processState}}{{/processState}}{{^processState}}null{{/processState}}
 
-    특징 : {{specialMark}}
+    성별 : {{#sexCd}}{{sexCd}}{{/sexCd}}{{^sexCd}}null{{/sexCd}}
 
-    보호소 이름 : {{careNm}}
+    중성화 여부 : {{#neuterYn}}{{neuterYn}}{{/neuterYn}}{{^neuterYn}}null{{/neuterYn}}
 
-    보호소 전화번호 : {{careTel}}
+    특징 : {{#specialMark}}{{specialMark}}{{/specialMark}}{{^specialMark}}null{{/specialMark}}
 
-    보호장소 : {{careAddr}}
+    보호소 이름 : {{#careNm}}{{careNm}}{{/careNm}}{{^careNm}}null{{/careNm}}
 
-    관활기관 : {{orgNm}}
+    보호소 전화번호 : {{#careTel}}{{careTel}}{{/careTel}}{{^careTel}}null{{/careTel}}
 
-    담당자 : {{chargeNm}}
+    보호장소 : {{#careAddr}}{{careAddr}}{{/careAddr}}{{^careAddr}}null{{/careAddr}}
 
-    담당자 연락처 : {{officetel}}
+    관활기관 : {{#orgNm}}{{orgNm}}{{/orgNm}}{{^orgNm}}null{{/orgNm}}
 
-    특이사항 : {{noticeComment}}
+    담당자 : {{#chargeNm}}{{chargeNm}}{{/chargeNm}}{{^chargeNm}}null{{/chargeNm}}
+
+    담당자 연락처 : {{#officetel}}{{officetel}}{{/officetel}}{{^officetel}}null{{/officetel}}
+
+    특이사항 : {{#noticeComment}}{{noticeComment}}{{/noticeComment}}{{^noticeComment}}null{{/noticeComment}}
     <hr>
 
     {{/animalslist}}
