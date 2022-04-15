@@ -23,10 +23,11 @@ public class Animals {
     private Integer id;
 
     @Column(nullable = true, length = 500)
+
     private String filename; // 썸네일
 
     @Column(nullable = true, length = 500)
-    private String desertionNo; // 유기번호
+
 
     @Column(nullable = true, length = 500)
     private String happenDt; // 접수일
