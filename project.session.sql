@@ -6,4 +6,5 @@ DROP TABLE SidoDto;
 DROP TABLE SigunguDto;
 DROP TABLE SigunguDtoHash;
 
+
 SELECT * FROM Sido WHERE orgCd;

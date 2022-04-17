@@ -10,12 +10,14 @@ import lombok.RequiredArgsConstructor;
 import site.metacoding.animalprojectbackend.domain.sigungu.Sigungu;
 import site.metacoding.animalprojectbackend.service.api.SigunguAllService;
 import site.metacoding.animalprojectbackend.service.api.SigunguService;
+import site.metacoding.animalprojectbackend.service.api.TestService;
 
 @RequiredArgsConstructor
 @Controller
 public class SigunguController {
 
     private final SigunguService sigunguService;
+
     private final SigunguAllService sigunguAllService;
 
     @GetMapping("/sigungu")
@@ -169,5 +171,19 @@ public class SigunguController {
 
         return "/api/sigunguDownload";
     }
+
+
+    @GetMapping("/sigungu/test")
+
+    public String test(Sigungu sigungu, Model model) {
+
+        List<Sigungu> sigunguEntity = testService.테스트(sigungu);
+
+        model.addAttribute("testlist", sigunguEntity);
+
+        return "/api/test";
+    }
+    
+
 
 }

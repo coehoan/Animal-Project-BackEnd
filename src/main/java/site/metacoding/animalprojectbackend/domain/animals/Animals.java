@@ -28,6 +28,7 @@ public class Animals {
     @Column(nullable = true, length = 500)
     private String desertionNo; // 유기번호
 
+
     @Column(nullable = true, length = 500)
     private String happenDt; // 접수일
 
