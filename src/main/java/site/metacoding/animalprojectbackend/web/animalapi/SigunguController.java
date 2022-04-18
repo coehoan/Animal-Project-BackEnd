@@ -31,8 +31,13 @@ public class SigunguController {
         return "/api/sigunguAllDownload";
     }
 
+<<<<<<< HEAD
     ///////////////////////////////////////// 이건 사용하지 마세요!!
 
+=======
+
+    /////////////////////////////////////////이건 사용하지 마세요!!
+>>>>>>> af5bb6ca31995cbcd2087bd5e6038f03e20d8d3f
     @GetMapping("/sigungu/busan")
     public String download(Sigungu sigunguDto, Model model) {
 
@@ -173,6 +178,10 @@ public class SigunguController {
         return "/api/sigunguDownload";
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> af5bb6ca31995cbcd2087bd5e6038f03e20d8d3f
     @GetMapping("/sigungu/test")
 
     public String test(Sigungu sigungu, Model model) {
@@ -183,5 +192,6 @@ public class SigunguController {
 
         return "/api/test";
     }
+
 
 }
