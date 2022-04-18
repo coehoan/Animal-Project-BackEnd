@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 public class Animals {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -27,7 +27,7 @@ public class Animals {
     private String filename; // 썸네일
 
     @Column(nullable = true, length = 500)
-
+    private String desertionNo;
 
     @Column(nullable = true, length = 500)
     private String happenDt; // 접수일

@@ -22,40 +22,46 @@ public class KindService {
     public List<KindDto> 다운로드(KindDto kindDto) {
 
         List<KindDto> lists = new ArrayList<>();
-
+        ArrayList<String> kindLists = new ArrayList<String>();
+        kindLists.add("417000");
+        kindLists.add("422400");
+        kindLists.add("429900");
         try {
-            String key = "jDqHGG%2BaNG47ijh6s3XzB%2BuF8fJOeovccnw%2FZtc9wLQUaKJumPo%2Frl1a2ygZ68dv9L0PD7drvpjPAeTnnB9f%2FQ%3D%3D";
-            URI uri = new URI(
-                    "http://apis.data.go.kr/1543061/abandonmentPublicSrvc/kind?serviceKey="
+            for (String str : kindLists) {
+                String key = "jDqHGG%2BaNG47ijh6s3XzB%2BuF8fJOeovccnw%2FZtc9wLQUaKJumPo%2Frl1a2ygZ68dv9L0PD7drvpjPAeTnnB9f%2FQ%3D%3D";
+                URI uri = new URI(
+                        "http://apis.data.go.kr/1543061/abandonmentPublicSrvc/kind?serviceKey="
 
-                            + key + "&up_kind_cd=422400&_type=json");
+                                + key + "&up_kind_cd=" + str + "&_type=json");
 
-            // 개 : 417000, 고양이 : 422400, 기타 : 429900
-            RestTemplate restTemplate = new RestTemplate();
+                // 개 : 417000, 고양이 : 422400, 기타 : 429900
+                RestTemplate restTemplate = new RestTemplate();
 
-            ResponseDto response = restTemplate.getForObject(uri, ResponseDto.class);
+                ResponseDto response = restTemplate.getForObject(uri, ResponseDto.class);
 
-            System.out.println(response);
+                System.out.println(response);
 
-            List<ResponseDto> kindList = new ArrayList<>();
+                List<ResponseDto> kindList = new ArrayList<>();
 
-            for (int i = 0; i < response.getResponse().getBody().getItems().getItem().size(); i++) {
-                kindList.add(response);
+                for (int i = 0; i < response.getResponse().getBody().getItems().getItem().size(); i++) {
+                    kindList.add(response);
+                }
+                System.out.println(kindList);
+
+                for (int i = 0; i < kindList.size(); i++) {
+                    KindDto result = new KindDto(i,
+                            kindList.get(i).getResponse().getBody().getItems().getItem().get(i).getKindCd(),
+                            kindList.get(i).getResponse().getBody().getItems().getItem().get(i).getKNm());
+                    lists.add(result);
+                }
+
+                System.out.println(lists);
+
             }
-            System.out.println(kindList);
-
-            for (int i = 0; i < kindList.size(); i++) {
-                KindDto result = new KindDto(i,
-                        kindList.get(i).getResponse().getBody().getItems().getItem().get(i).getKindCd(),
-                        kindList.get(i).getResponse().getBody().getItems().getItem().get(i).getKNm());
-                lists.add(result);
-            }
-
-            System.out.println(lists);
-
             List<KindDto> kindEntity = kindRepository.saveAll(lists);
 
             return kindEntity;
+
         } catch (Exception e) {
             e.printStackTrace();
         }
