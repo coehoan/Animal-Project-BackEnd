@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import lombok.RequiredArgsConstructor;
 import site.metacoding.animalprojectbackend.animalkind.kindservice.KindService;
-import site.metacoding.animalprojectbackend.animalkind.modeling.Kind;
 import site.metacoding.animalprojectbackend.animalkind.modeling.KindDto;
 
 @RequiredArgsConstructor
@@ -18,7 +17,7 @@ public class KindController {
 
     @GetMapping("/kind")
     public String download(KindDto kindDto, Model model) {
-        List<Kind> kindEntity = kindService.다운로드(kindDto);
+        List<KindDto> kindEntity = kindService.다운로드(kindDto);
 
         model.addAttribute("kindlist", kindEntity);
 
